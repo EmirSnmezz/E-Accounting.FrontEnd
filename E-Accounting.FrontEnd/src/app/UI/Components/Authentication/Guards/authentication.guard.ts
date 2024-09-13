@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChildFn, CanActivateFn, GuardResult, MaybeAsync, Router, RouterLink, RouterStateSnapshot } from '@angular/router';
-import { stat } from 'fs';
 
 @Injectable({
   providedIn: 'root'
