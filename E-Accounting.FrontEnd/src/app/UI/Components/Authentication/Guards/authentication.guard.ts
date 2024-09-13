@@ -10,7 +10,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
   constructor(private _router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!localStorage.getItem("accessToken")) {
+    if (this.IsThereToken().valueOf) {
       this._router.navigateByUrl("/login");
       return false;
     }
@@ -20,6 +20,16 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.canActivate(childRoute, state);
+  }
+
+  IsThereToken() : boolean
+  {
+    if(localStorage.getItem("accessToken"))
+    {
+      return true;
+    }
+
+    return false;
   }
 }
 

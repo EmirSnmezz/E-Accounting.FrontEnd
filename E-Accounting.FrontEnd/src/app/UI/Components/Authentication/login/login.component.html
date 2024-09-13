@@ -8,21 +8,44 @@
         <div class="card-body">
           <p class="login-box-msg">Giriş yapmak için bilgilerinizi doldurunuz</p>
     
-          <form #loginForm="ngForm" (formdata)="formRequest()">
+          <form #loginForm="ngForm" (formdata)="formRequest(loginForm)">
             <div class="input-group mb-3">
-              <input type="text" #emailOrUserName name ="emailOrUserName" required minlength="3" class="form-control" placeholder="Email" ngModel>
+              <input type="text" 
+              #emailOrUserName 
+              name ="emailOrUserName" 
+              required 
+              minlength="3" 
+              class="form-control"
+              placeholder="E-mail" 
+              ngModel
+              [validInput]= "emailOrUserName.validity.valid"
+              />
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
                 </div>
               </div>
+              <div class="invalid-feedback">
+                Kullanıcı adı veya e-mail bilgisi hatalı!
+              </div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" #password name="password" required minlength="6" class="form-control" placeholder="Password" ngModel>
+              <input type="password" 
+              #password name="password" 
+              required 
+              minlength="3"
+              class="form-control" 
+              placeholder="Password" 
+              ngModel
+              [validInput]= "password.validity.valid"
+              />
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
                 </div>
+              </div>
+              <div class="invalid-feedback">
+                lütfen geçerli bir şifre giriniz!
               </div>
             </div>
             <div class="row">
