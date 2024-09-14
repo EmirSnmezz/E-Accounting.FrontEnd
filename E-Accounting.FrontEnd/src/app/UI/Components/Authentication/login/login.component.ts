@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import {Form, FormsModule} from '@angular/forms'
+import {Form, FormGroup, FormsModule, NgForm} from '@angular/forms'
 import { InputValidDirective } from '../../../../Common/input-valid.directive';
+import { LoginModel } from '../Model/login.model';
+import { log } from 'console';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -12,7 +14,14 @@ import { InputValidDirective } from '../../../../Common/input-valid.directive';
 })
 export class LoginComponent {
 
-  formRequest(data : any){
-  }
+isDisabled? : boolean;
+  Login(form : NgForm) {
 
+    if(form.valid)
+    {
+      console.log(form.dirty);
+      console.log(form.value);
+      
+    }
+}
 }

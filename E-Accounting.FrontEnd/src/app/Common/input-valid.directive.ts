@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, ViewContainerRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 
 @Directive({
   selector: '[validInput]',
@@ -8,10 +8,10 @@ import { FormsModule } from '@angular/forms';
 export class InputValidDirective {
   constructor(private _viewContainerRef : ViewContainerRef, private _elementRef : ElementRef<HTMLInputElement>) 
   {}
-  @Input("validInput") validInput : boolean = true;
+  @Input("validInput") isValid : boolean = true;
 
   @HostListener("keyup") keyUp(){
-    if(this.validInput)  
+    if(this.isValid)  
     {
       this._elementRef.nativeElement.className = "form-control is-valid"
     }

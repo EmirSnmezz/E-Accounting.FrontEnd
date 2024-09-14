@@ -8,7 +8,7 @@
         <div class="card-body">
           <p class="login-box-msg">Giriş yapmak için bilgilerinizi doldurunuz</p>
     
-          <form #loginForm="ngForm" (formdata)="formRequest(loginForm)">
+          <form #loginForm="ngForm" (ngSubmit)="Login(loginForm)">
             <div class="input-group mb-3">
               <input type="text" 
               #emailOrUserName 
@@ -18,7 +18,7 @@
               class="form-control"
               placeholder="E-mail" 
               ngModel
-              [validInput]= "emailOrUserName.validity.valid"
+              [validInput]="emailOrUserName.validity?.valid"
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -37,7 +37,7 @@
               class="form-control" 
               placeholder="Password" 
               ngModel
-              [validInput]= "password.validity.valid"
+              [validInput]="password.validity?.valid"
               />
               <div class="input-group-append">
                 <div class="input-group-text">
@@ -53,7 +53,10 @@
               </div>
               <!-- /.col -->
               <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block">Giriş yap</button>
+                <button type="submit" 
+                class="btn btn-primary btn-block">
+                Giriş yap
+              </button>
               </div>
               <!-- /.col -->
             </div>
