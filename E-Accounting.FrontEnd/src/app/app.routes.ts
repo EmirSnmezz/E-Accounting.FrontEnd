@@ -5,7 +5,7 @@ import { AuthenticationGuard } from './UI/Components/Authentication/Guards/authe
 export const routes: Routes = 
 [
     {
-        path : "", 
+        path : "", pathMatch : "full",
         loadComponent: ()=> import("./UI/Components/Layouts/layout/layout.component")
         .then(c => c.LayoutComponent),
         canActivateChild : [AuthenticationGuard],

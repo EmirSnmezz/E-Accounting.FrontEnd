@@ -17,9 +17,9 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
       this.isBrowser = true;
       this.token = localStorage.getItem("accessToken");
     }
-
     else{
       this.isBrowser = false;
+      this.token = null;
     }
   }
 
@@ -27,12 +27,11 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
 
     if(this.isBrowser)
     {
-      if (!this.token) {
+      if (this.token == null) {
         this._router.navigateByUrl("/login");
         return false;
       }
     }
-    
     return true;
 
   }

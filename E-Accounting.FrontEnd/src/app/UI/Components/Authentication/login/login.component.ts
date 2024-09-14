@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Inject } from '@angular/core';
+import { Router, RouterEvent, RouterLink } from '@angular/router';
 import {Form, FormGroup, FormsModule, NgForm} from '@angular/forms'
-import { InputValidDirective } from '../../../../Common/input-valid.directive';
-import { LoginModel } from '../Model/login.model';
-import { log } from 'console';
+import { InputValidDirective } from '../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,14 +12,16 @@ import { log } from 'console';
 })
 export class LoginComponent {
 
+  constructor(@Inject(Router) private _router: Router){}
+
 isDisabled? : boolean;
   Login(form : NgForm) {
 
     if(form.valid)
     {
       console.log(form.dirty);
-      console.log(form.value);
-      
+      // console.log(form.value);
+      localStorage.setItem("accessToken", "true")
     }
 }
 }
