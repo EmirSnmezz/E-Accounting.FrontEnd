@@ -19,9 +19,8 @@ isDisabled? : boolean;
 
     if(form.valid)
     {
-      console.log(form.dirty);
-      // console.log(form.value);
       localStorage.setItem("accessToken", "true")
+      this._router.navigateByUrl("");
     }
 }
 }

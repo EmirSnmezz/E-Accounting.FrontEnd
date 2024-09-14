@@ -25,7 +25,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    if(this.isBrowser)
+    if(this.isBrowser && this.token != null)
     {
       if (this.token == null) {
         this._router.navigateByUrl("/login");
