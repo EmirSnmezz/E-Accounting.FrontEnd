@@ -48,19 +48,12 @@
                 lütfen geçerli bir şifre giriniz!
               </div>
             </div>
-            <div class="row">
-              <div class="col-8">
-              </div>
-              <!-- /.col -->
-              <div class="col-12">
-                <button type="submit" 
-                class="btn btn-primary btn-block"
-                >
-                Giriş yap
-              </button>
-              </div>
-              <!-- /.col -->
-            </div>
+            <loading-button 
+            [isLoading]="isLoading" 
+            [form]="loginForm"
+            btnName="Giriş yap"
+            btnLoadingDescription="Giriş yapılıyor...">
+          </loading-button>
           </form>
     
           <div class="social-auth-links text-center mt-2 mb-3">

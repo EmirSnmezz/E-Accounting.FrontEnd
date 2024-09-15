@@ -1,0 +1,24 @@
+<div class="form-group">
+    <div class="col-8">
+    </div>
+    <!-- /.col -->
+    <div class="col-12">
+      <button type="submit" 
+      class="btn btn-primary btn-block"
+      [disabled]="!form.valid"
+      *ngIf="!isLoading"
+      >
+      {{btnName}}
+    </button>
+
+    <button 
+    type ="submit"
+    class={{btnClass}}
+    disabled
+    *ngIf="isLoading">
+      <span class="spinner-border spinner-border-sm"></span>
+      <span> {{btnLoadingDescription}}.</span>
+  </button>
+    </div>
+    <!-- /.col -->
+  </div>
