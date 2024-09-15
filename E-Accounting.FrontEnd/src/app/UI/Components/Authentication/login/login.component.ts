@@ -13,16 +13,11 @@ import { InputValidDirective } from '../../../../Common/Directives/Input-validta
 export class LoginComponent {
 
   constructor(@Inject(Router) private _router: Router){}
-
-isDisabled? : boolean;
   Login(form : NgForm) {
 
     if(form.valid)
     {
       localStorage.setItem("accessToken", "true")
-      console.log(localStorage.key(0));
-       
-
     }
 }
 }

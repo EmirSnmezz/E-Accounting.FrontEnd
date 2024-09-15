@@ -7,26 +7,24 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChild
 })
 
 export class AuthenticationGuard implements CanActivate, CanActivateChild {
-
   isBrowser : boolean ;
   token;
   constructor(private _router: Router, @Inject(PLATFORM_ID) private _platformId) 
   {
+    debugger;
     if(isPlatformBrowser(_platformId))
     {
       this.isBrowser = true;
       this.token = localStorage.getItem("accessToken");
-      _router.navigateByUrl("");
     }
     else{
       this.isBrowser = false;
-      this.token = null;
     }
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    if(this.isBrowser && this.token != null)
+    if(this.isBrowser)
     {
       if (this.token == null) {
         this._router.navigateByUrl("/login");
