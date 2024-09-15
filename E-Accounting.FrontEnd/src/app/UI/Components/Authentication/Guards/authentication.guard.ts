@@ -9,9 +9,9 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChild
 export class AuthenticationGuard implements CanActivate, CanActivateChild {
   isBrowser : boolean ;
   token;
+  state: boolean = false;
   constructor(private _router: Router, @Inject(PLATFORM_ID) private _platformId) 
   {
-    debugger;
     if(isPlatformBrowser(_platformId))
     {
       this.isBrowser = true;
@@ -23,15 +23,15 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
     if(this.isBrowser)
     {
       if (this.token == null) {
         this._router.navigateByUrl("/login");
-        return false;
+        return this.state;
       }
     }
-    return true;
+  this.state = true;
+  return this.state;
 
   }
 

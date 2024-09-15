@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject,  } from '@angular/core';
-import { Router, RouterEvent, RouterLink } from '@angular/router';
-import {Form, FormGroup, FormsModule, NgForm} from '@angular/forms'
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule, NgForm} from '@angular/forms'
 import { InputValidDirective } from '../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
 import { LoadingButtonComponent } from "../../../../Common/Components/loading-button/loading-button.component";
+import { AuthenticationService } from '../Services/authentication.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,16 +15,12 @@ import { LoadingButtonComponent } from "../../../../Common/Components/loading-bu
 export class LoginComponent {
 
   isLoading: boolean = false;
-  constructor(@Inject(Router) private _router: Router){}
+  constructor(private _router: Router, private _authenticationService: AuthenticationService){}
   Login(form : NgForm) {
 
     if(form.valid)
     {
-      this.isLoading = true;
-      localStorage.setItem("accessToken", "true")
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 3000);
+      this._authenticationService.login(form.value);
     }
 }
 }
