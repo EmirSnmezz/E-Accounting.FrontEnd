@@ -16,6 +16,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
     {
       this.isBrowser = true;
       this.token = localStorage.getItem("accessToken");
+      _router.navigateByUrl("");
     }
     else{
       this.isBrowser = false;
