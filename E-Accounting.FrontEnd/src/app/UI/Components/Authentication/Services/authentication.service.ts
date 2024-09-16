@@ -20,4 +20,10 @@ export class AuthenticationService {
       this._router.navigateByUrl("");
     })
   }
+
+  logout()
+  {
+    localStorage.clear();
+    this._router.navigateByUrl("/login");
+  }
 }
