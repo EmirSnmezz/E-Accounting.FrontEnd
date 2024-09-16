@@ -15,7 +15,7 @@ import { AuthenticationService } from '../Services/authentication.service';
 export class LoginComponent {
 
   isLoading: boolean = false;
-  constructor(private _router: Router, private _authenticationService: AuthenticationService){}
+  constructor(private _authenticationService: AuthenticationService){}
   Login(form : NgForm) {
 
     if(form.valid)
