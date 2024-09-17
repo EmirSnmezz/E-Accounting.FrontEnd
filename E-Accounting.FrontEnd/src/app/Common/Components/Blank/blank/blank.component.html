@@ -1,0 +1,20 @@
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>{{title}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item {{nav.class}} " *ngFor="let nav of navs"><a routerLink="{{nav.routerLink}}" href="#">{{nav.name}}</a></li>
+              <!-- <li class="breadcrumb-item active">Blank Page</li> -->
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <ng-content>
+        <app-section></app-section>
+    </ng-content>
+  </div>
