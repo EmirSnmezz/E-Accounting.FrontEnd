@@ -5,6 +5,7 @@ import { FormsModule, NgForm} from '@angular/forms'
 import { InputValidDirective } from '../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
 import { LoadingButtonComponent } from "../../../../Common/Components/loading-button/loading-button.component";
 import { AuthenticationService } from '../Services/authentication.service';
+declare const localStorage;
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,8 +16,10 @@ import { AuthenticationService } from '../Services/authentication.service';
 export class LoginComponent {
 
   isLoading: boolean = false;
-  constructor(private _authenticationService: AuthenticationService)
+  constructor(private _authenticationService: AuthenticationService, private _router: Router)
   {
+    if(localStorage.getItem("accessToken") != null)
+      this._router.navigateByUrl("");
   }
   Login(form : NgForm) {
 
