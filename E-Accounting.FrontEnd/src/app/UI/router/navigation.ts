@@ -7,7 +7,7 @@ export class Navigation{
 export const Navigations: Navigation[] = [
     
     {
-        routerLink: "/home-page",
+        routerLink: "/",
         name: "Anasayfa",
         icon: "nav-icon fa fa-home text-info"
     },
@@ -15,11 +15,6 @@ export const Navigations: Navigation[] = [
     {
         routerLink: "/ucafs",
         name: "Hesap Planı",
-        icon: "nav-icon fa fa-circle text-info"
-    },
-    {
-        routerLink: "/logout",
-        name: "Çıkış Yap",
-        icon: "nav-icon fa fa-power-off text-danger"
+        icon: "nav-icon fa fa-file-signature"
     }
 ]
