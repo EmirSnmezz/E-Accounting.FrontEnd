@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class GenericHttpClientService {
 
-  apiUrl: string = "";
+  apiUrl: string = "https://localhost:7019/api/";
   token: string = "";
   isBrowser: boolean = true;
 
