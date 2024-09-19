@@ -8,7 +8,7 @@ import { CryptoService } from '../../../../Common/Services/cryptoService/crypto.
   providedIn: 'root'
 })
 export class AuthenticationService {
-  api: string = "https://localhost:7019/api/Auth/Login";
+  api: string = "Auth/Login";
   constructor(private _httpClient: GenericHttpClientService, private _router: Router, private _crypto: CryptoService) { }
 
   login(model:any)
