@@ -1,16 +1,17 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, ElementRef, TemplateRef } from '@angular/core';
-import { BlankCommonComponent } from '../../../../Common/Components/Blank/blank/blank.component';
-import { SectionComponent } from '../../../../Common/Components/Blank/blank/Section/section/section.component';
-import { NavModel } from '../../../../Common/Components/Blank/blank/Models/Nav.model';
-import { UCAFService } from '../Services/ucaf.service';
-import { UCAFModel } from '../ucaf.models';
-import { ResponseModel } from '../../../../Common/Models/response.model';
-import { SearchOfKeywordPipe } from '../Pipes/search-of-keyword.pipe';
+import { BlankCommonComponent } from '../../../../../Common/Components/Blank/blank/blank.component';
+import { SectionComponent } from '../../../../../Common/Components/Blank/blank/Section/section/section.component';
+import { NavModel } from '../../../../../Common/Components/Blank/blank/Models/Nav.model';
+import { UCAFService } from '../../Services/ucaf.service';
+import { UCAFModel } from '../../ucaf.models';
+import { ResponseModel } from '../../../../../Common/Models/response.model';
+import { SearchOfKeywordPipe } from '../../Pipes/search-of-keyword.pipe';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
-import { InputValidDirective } from '../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
-import { LoadingButtonComponent } from "../../../../Common/Components/loading-button/loading-button.component";
-import { ToastrService, ToastrTypes } from '../../../../Common/Services/ToastrService/toastr.service';
+import { InputValidDirective } from '../../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
+import { LoadingButtonComponent } from "../../../../../Common/Components/loading-button/loading-button.component";
+import { ToastrService, ToastrTypes } from '../../../../../Common/Services/ToastrService/toastr.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ucafs',
@@ -41,7 +42,7 @@ export class UcafsComponent {
   ucafType: string ="M"
   isLoading: boolean = false;
 
-  constructor(private _ucafService: UCAFService, private _toastr: ToastrService) { }
+  constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router) { }
 
   ucafs: UCAFModel[] = [];
 
@@ -49,9 +50,7 @@ export class UcafsComponent {
     this.getAll();
   }
 
-  getAll() {
-    this._ucafService.getAll(res => this.ucafs = res.data)
-  }
+ 
 
   showAddForm() {
     this.issAddForm = !this.issAddForm
@@ -63,8 +62,9 @@ export class UcafsComponent {
       this.openFormButtonIconString = "fa fa-plus"
     }
   }
-
-  add(form: NgForm)
+  // API Operations
+    //Create Operations
+      add(form: NgForm)
   {
     if(form.valid)
     {
@@ -83,8 +83,17 @@ export class UcafsComponent {
       }) 
     }
   }
+      addMainUcafs()
+  {
+    debugger;
+    this._ucafService.createMainUcafs((res) =>{
+      this._toastr.toast(ToastrTypes.Success, res.message, "Ana Hesap Planı Kayıtları Eklendi...")
+      this.getAll()
+    })
+  }
 
-  remove(data: UCAFModel)
+    //Remove Operations
+       remove(data: UCAFModel)
   {
       this._ucafService.remove(data, (res) => {
         var model = new UCAFModel();
@@ -94,4 +103,10 @@ export class UcafsComponent {
           this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
       });
   }
+
+  //Get Operations
+     getAll() {
+    this._ucafService.getAll(res => this.ucafs = res.data)
+  }
+
 }

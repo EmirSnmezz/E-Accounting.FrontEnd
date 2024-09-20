@@ -16,7 +16,7 @@ export const routes: Routes =
                 },
                 {
                     path: "ucafs",
-                    loadComponent: () => import("./UI/Components/UCAFs/ucafs/ucafs.component")
+                    loadComponent: () => import("./UI/Components/UCAFs/ucafs/Ucaf/ucafs.component")
                         .then(c => c.UcafsComponent)
                 }
             ]

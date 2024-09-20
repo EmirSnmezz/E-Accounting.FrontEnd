@@ -44,4 +44,11 @@ export class UCAFService {
     model.companyId = this.loginResponseModel.company.companyId;
     this._http.post<MessageResponseModel>("UCAFS/RemoveByIdUcaf", {id: model.id, companyId: model.companyId}, (res) => callBack(res))
   }
+
+  createMainUcafs(callBack: (res: MessageResponseModel) => void)
+  {
+    debugger;
+    var companyId = this.loginResponseModel.company.companyId;
+    this._http.post<MessageResponseModel>("UCAFS/CreateMainUCAF", {companyId: companyId}, res => callBack(res))
+  }
 }
