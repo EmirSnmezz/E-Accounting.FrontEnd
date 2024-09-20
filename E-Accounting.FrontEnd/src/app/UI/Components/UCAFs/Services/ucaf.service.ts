@@ -6,6 +6,7 @@ import { LoginResponseModel } from '../../Authentication/Models/login-response.m
 import { callbackify } from 'util';
 import { ResponseModel } from '../../../../Common/Models/response.model';
 import { MessageResponseModel } from '../../../../Common/Models/message-response.model';
+import { ToastrService } from '../../../../Common/Services/ToastrService/toastr.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,15 @@ export class UCAFService {
   add(model: UCAFModel, callBack: (res: MessageResponseModel) => void ){
     model.companyId = this.loginResponseModel.company.companyId;
     this._http.post<MessageResponseModel>("UCAFS/CreateUCAF", model, (res) => callBack(res) )
+  }
+
+  getByCode(model: UCAFModel, callBack: (res: UCAFModel) => void){
+    model.companyId = this.loginResponseModel.company.companyId;
+    this._http.post<UCAFModel>("GetByCodeUCAF", {companyId: model.companyId, code: model.code}, (res) => callBack(res))
+  }
+
+  remove(model: UCAFModel, callBack: (res: MessageResponseModel) =>void) {
+    model.companyId = this.loginResponseModel.company.companyId;
+    this._http.post<MessageResponseModel>("UCAFS/RemoveByIdUcaf", {id: model.id, companyId: model.companyId}, (res) => callBack(res))
   }
 }
