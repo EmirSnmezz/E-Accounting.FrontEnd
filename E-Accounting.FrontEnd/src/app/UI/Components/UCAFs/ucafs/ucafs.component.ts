@@ -66,7 +66,6 @@ export class UcafsComponent {
 
   add(form: NgForm)
   {
-    debugger;
     if(form.valid)
     {
       this.isLoading = true;
@@ -80,8 +79,19 @@ export class UcafsComponent {
         this.ucafType = "M".toString();
         this.getAll();
         this.isLoading = false;
-        this._toastr.toast(ToastrTypes.Success, res.message,  "Ekleme İşlemi Başarılı")
+        this._toastr.toast(ToastrTypes.Success, res.message,  "Ekleme İşlemi Başarılı...")
       }) 
     }
+  }
+
+  remove(data: UCAFModel)
+  {
+      this._ucafService.remove(data, (res) => {
+        var model = new UCAFModel();
+        model.id = data.id;
+        model.companyId = data.companyId;
+          this.getAll();
+          this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
+      });
   }
 }
