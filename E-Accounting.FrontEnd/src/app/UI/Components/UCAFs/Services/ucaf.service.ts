@@ -17,38 +17,35 @@ export class UCAFService {
   loginResponsestring = this._cyrptoService.decrypto(localStorage.getItem("accessToken").toString());
 
   constructor(
-    private _cyrptoService: CryptoService, 
-    private _http: GenericHttpClientService)
-    {
-    this.loginResponseModel =  JSON.parse(this.loginResponsestring)
+    private _cyrptoService: CryptoService,
+    private _http: GenericHttpClientService) {
+    this.loginResponseModel = JSON.parse(this.loginResponsestring)
     console.log(this.loginResponseModel);
   }
 
-  getAll(callBack: (res: ResponseModel<UCAFModel[]>) => void)
-  {
-    let model = {companyId: this.loginResponseModel.company.companyId}
-    this._http.post<ResponseModel<UCAFModel[]>>("UCAFS/GetAllUCAF", model, res => callBack(res) )
+  getAll(callBack: (res: ResponseModel<UCAFModel[]>) => void) {
+    let model = { companyId: this.loginResponseModel.company.companyId }
+    this._http.post<ResponseModel<UCAFModel[]>>("UCAFS/GetAllUCAF", model, res => callBack(res))
   }
 
-  add(model: UCAFModel, callBack: (res: MessageResponseModel) => void ){
+  add(model: UCAFModel, callBack: (res: MessageResponseModel) => void) {
     model.companyId = this.loginResponseModel.company.companyId;
-    this._http.post<MessageResponseModel>("UCAFS/CreateUCAF", model, (res) => callBack(res) )
+    this._http.post<MessageResponseModel>("UCAFS/CreateUCAF", model, (res) => callBack(res))
   }
 
-  getByCode(model: UCAFModel, callBack: (res: UCAFModel) => void){
+  getByCode(model: UCAFModel, callBack: (res: UCAFModel) => void) {
     model.companyId = this.loginResponseModel.company.companyId;
-    this._http.post<UCAFModel>("GetByCodeUCAF", {companyId: model.companyId, code: model.code}, (res) => callBack(res))
+    this._http.post<UCAFModel>("GetByCodeUCAF", { companyId: model.companyId, code: model.code }, (res) => callBack(res))
   }
 
-  remove(model: UCAFModel, callBack: (res: MessageResponseModel) =>void) {
+  remove(model: UCAFModel, callBack: (res: MessageResponseModel) => void) {
     model.companyId = this.loginResponseModel.company.companyId;
-    this._http.post<MessageResponseModel>("UCAFS/RemoveByIdUcaf", {id: model.id, companyId: model.companyId}, (res) => callBack(res))
+    this._http.post<MessageResponseModel>("UCAFS/RemoveByIdUcaf", { id: model.id, companyId: model.companyId }, (res) => callBack(res))
   }
 
-  createMainUcafs(callBack: (res: MessageResponseModel) => void)
-  {
+  createMainUcafs(callBack: (res: MessageResponseModel) => void) {
     debugger;
     var companyId = this.loginResponseModel.company.companyId;
-    this._http.post<MessageResponseModel>("UCAFS/CreateMainUCAF", {companyId: companyId}, res => callBack(res))
+    this._http.post<MessageResponseModel>("UCAFS/CreateMainUCAF", { companyId: companyId }, res => callBack(res))
   }
 }

@@ -1,38 +1,37 @@
 <app-blank-common title="Hesap Planı" [navs]="navs">
     @if(issAddForm == true)
     {
-        <app-section sectionTitle="Hesap Planı Ekleme Formu" class="align-content-center">
-            <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="name">Hesap Planı Adı</label>
-                        <input ngModel type="text" name="name" #name class="form-control" required [validInput]="name.validity.valid">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="code">Hesap Planı Tipi</label>
-                        <select class = "form-control" [(ngModel)]="ucafType" name="type" #type [validInput]="type.validity.valid" value="M">
-                            <option value="G">Grup</option>
-                            <option value="M" selected >Muavin</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="type">Hesap Planı Kodu</label>
-                        <input ngModel type="text" name="code" #code class="form-control" required minlength="5" [validInput]="code.validity.valid">
-                    </div>
-                    <div class="col-md-3">
-                        <label>İşlemler</label>
-                        <loading-button 
-                        [form]="addForm"
-                        [isLoading]="isLoading"
-                        btnName="Kaydet"
-                        btnLoadingDescription="Kaydediliyor..."
-                        >
-                            <i class="fa fa-plus"></i>
-                        </loading-button>
-                    </div>
+    <app-section sectionTitle="Hesap Planı Ekleme Formu" class="align-content-center">
+        <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="name">Hesap Planı Adı</label>
+                    <input ngModel type="text" name="name" #name class="form-control" required
+                        [validInput]="name.validity.valid">
                 </div>
-            </form>
-        </app-section>
+                <div class="col-md-3">
+                    <label for="code">Hesap Planı Tipi</label>
+                    <select class="form-control" [(ngModel)]="ucafType" name="type" #type
+                        [validInput]="type.validity.valid" value="M">
+                        <option value="G">Grup</option>
+                        <option value="M" selected>Muavin</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="type">Hesap Planı Kodu</label>
+                    <input ngModel type="text" name="code" #code class="form-control" required minlength="5"
+                        [validInput]="code.validity.valid">
+                </div>
+                <div class="col-md-3">
+                    <label>İşlemler</label>
+                    <loading-button [form]="addForm" [isLoading]="isLoading" btnName="Kaydet"
+                        btnLoadingDescription="Kaydediliyor...">
+                        <i class="fa fa-plus"></i>
+                    </loading-button>
+                </div>
+            </div>
+        </form>
+    </app-section>
     }
     <app-section sectionTitle="Hesap Planı Listesi">
         <div class="form-group float-left">
@@ -44,19 +43,19 @@
             <input type="search" placeholder="Aranacak değer..." [(ngModel)]="filterText" class="form-control search">
         </div>
         <div class="form-group">
-              <table  class="table table-bordered text-center">
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Tip</th>
-                    <th>Açıklama</th>
-                    <th>İşlemler</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                    @for (ucaf of ucafs | searchOfKeyword: filterText;  track $index) 
-                {
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Tip</th>
+                        <th>Açıklama</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (ucaf of ucafs | searchOfKeyword: filterText; track $index)
+                    {
                     <tr>
                         <td [innerText]="ucaf.code"></td>
                         <td [innerText]="ucaf.type"></td>
@@ -70,10 +69,11 @@
                             </button>
                         </td>
                     </tr>
-                }
-            </tbody>
-        </table>
+                    }
+                </tbody>
+            </table>
         </div>
-       <button class = "btn btn-outline-primary w-30 float-right" [innerText]="'Ana Hesap Planı Kaydını Oluştur'" (click)="addMainUcafs()"></button>
+        <button class="btn btn-outline-primary w-30 float-right" [innerText]="'Ana Hesap Planı Kaydını Oluştur'"
+            (click)="addMainUcafs()"></button>
     </app-section>
 </app-blank-common>

@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
     FormsModule,
     InputValidDirective,
     LoadingButtonComponent
-],
+  ],
   templateUrl: './ucafs.component.html',
   styleUrl: './ucafs.component.css'
 })
@@ -39,7 +39,7 @@ export class UcafsComponent {
   filterText: string = "";
   issAddForm: boolean = false;
   openFormButtonIconString: string = "fa fa-plus";
-  ucafType: string ="M"
+  ucafType: string = "M"
   isLoading: boolean = false;
 
   constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router) { }
@@ -49,8 +49,6 @@ export class UcafsComponent {
   ngOnInit() {
     this.getAll();
   }
-
- 
 
   showAddForm() {
     this.issAddForm = !this.issAddForm
@@ -62,50 +60,48 @@ export class UcafsComponent {
       this.openFormButtonIconString = "fa fa-plus"
     }
   }
-  // API Operations
-    //Create Operations
-      add(form: NgForm)
-  {
-    if(form.valid)
-    {
+
+  //            ********************************************* API Operations *********************************************
+  //Create Operations
+  add(form: NgForm) {
+    if (form.valid) {
       this.isLoading = true;
       let model = new UCAFModel();
       model.code = form.controls["code"].value;
       model.type = form.controls["type"].value;
       model.name = form.controls["name"].value;
 
-      this._ucafService.add(model, (res) =>{
+      this._ucafService.add(model, (res) => {
         form.reset();
         this.ucafType = "M".toString();
         this.getAll();
         this.isLoading = false;
-        this._toastr.toast(ToastrTypes.Success, res.message,  "Ekleme İşlemi Başarılı...")
-      }) 
+        this._toastr.toast(ToastrTypes.Success, res.message, "Ekleme İşlemi Başarılı...")
+      })
     }
   }
-      addMainUcafs()
-  {
-    debugger;
-    this._ucafService.createMainUcafs((res) =>{
+  
+  addMainUcafs() {
+
+    this._ucafService.createMainUcafs((res) => {
       this._toastr.toast(ToastrTypes.Success, res.message, "Ana Hesap Planı Kayıtları Eklendi...")
       this.getAll()
     })
   }
 
-    //Remove Operations
-       remove(data: UCAFModel)
-  {
-      this._ucafService.remove(data, (res) => {
-        var model = new UCAFModel();
-        model.id = data.id;
-        model.companyId = data.companyId;
-          this.getAll();
-          this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
-      });
+  //Remove Operations
+  remove(data: UCAFModel) {
+    this._ucafService.remove(data, (res) => {
+      var model = new UCAFModel();
+      model.id = data.id;
+      model.companyId = data.companyId;
+      this.getAll();
+      this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
+    });
   }
 
   //Get Operations
-     getAll() {
+  getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data)
   }
 
