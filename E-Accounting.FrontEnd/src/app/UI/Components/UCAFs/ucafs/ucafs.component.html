@@ -1,6 +1,50 @@
 <app-blank-common title="Hesap Planı" [navs]="navs">
+    @if(issAddForm == true)
+    {
+        <app-section sectionTitle="Hesap Planı Ekleme Formu" class="align-content-center">
+            <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="name">Hesap Planı Adı</label>
+                        <input ngModel type="text" name="name" #name class="form-control" required [validInput]="name.validity.valid">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="code">Hesap Planı Tipi</label>
+                        <select class = "form-control" [(ngModel)]="ucafType" name="type" #type [validInput]="type.validity.valid" value="M">
+                            <option value="G">Grup</option>
+                            <option value="M" selected >Muavin</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="type">Hesap Planı Kodu</label>
+                        <input ngModel type="text" name="code" #code class="form-control" required minlength="5" [validInput]="code.validity.valid">
+                    </div>
+                    <div class="col-md-3">
+                        <label>İşlemler</label>
+                        <loading-button 
+                        [form]="addForm"
+                        [isLoading]="isLoading"
+                        btnName="Kaydet"
+                        btnLoadingDescription="Kaydediliyor..."
+                        >
+                            <i class="fa fa-plus"></i>
+                        </loading-button>
+                    </div>
+                </div>
+            </form>
+        </app-section>
+    }
     <app-section sectionTitle="Hesap Planı Listesi">
-        <table  class="table table-bordered text-center">
+        <div class="form-group float-left">
+            <button class="btn btn-outline-primary w-100" (click)="showAddForm()">
+                <i [class]=openFormButtonIconString></i>
+            </button>
+        </div>
+        <div class="form-group float-right col-md-3">
+            <input type="search" placeholder="Aranacak değer..." [(ngModel)]="filterText" class="form-control search">
+        </div>
+        <div class="form-group">
+              <table  class="table table-bordered text-center">
             <thead>
                 <tr>
                     <th>Code</th>
@@ -11,7 +55,7 @@
             </thead>
             <tbody>
                 
-                    @for (ucaf of ucafs; track $index) 
+                    @for (ucaf of ucafs | searchOfKeyword: filterText;  track $index) 
                 {
                     <tr>
                         <td [innerText]="ucaf.code"></td>
@@ -29,5 +73,6 @@
                 }
             </tbody>
         </table>
+        </div>
     </app-section>
 </app-blank-common>
