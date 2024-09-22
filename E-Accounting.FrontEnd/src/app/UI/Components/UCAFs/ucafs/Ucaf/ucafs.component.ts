@@ -92,13 +92,17 @@ export class UcafsComponent {
 
   //Remove Operations
   remove(data: RemoveUcafModel) {
-    this._ucafService.remove(data, (res) => {
-      var model = new RemoveUcafModel();
-      model.id = data.id;
-      model.companyId = data.companyId;
-      this.getAll();
-      this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
-    });
+    var result = confirm("Hesap Planını Gerçekten Silmek İstiyor Musunuz ?");
+    if(result)
+    {
+      this._ucafService.remove(data, (res) => {
+        var model = new RemoveUcafModel();
+        model.id = data.id;
+        model.companyId = data.companyId;
+        this.getAll();
+        this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
+      });
+    }
   }
 
   //Get Operations
