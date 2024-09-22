@@ -4,7 +4,7 @@ import { BlankCommonComponent } from '../../../../../Common/Components/Blank/bla
 import { SectionComponent } from '../../../../../Common/Components/Blank/blank/Section/section/section.component';
 import { NavModel } from '../../../../../Common/Components/Blank/blank/Models/Nav.model';
 import { UCAFService } from '../../Services/ucaf.service';
-import { UCAFModel } from '../../ucaf.models';
+import { UCAFModel } from './ucafModels/create.ucaf.models';
 import { ResponseModel } from '../../../../../Common/Models/response.model';
 import { SearchOfKeywordPipe } from '../../Pipes/search-of-keyword.pipe';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
@@ -12,6 +12,7 @@ import { InputValidDirective } from '../../../../../Common/Directives/Input-vali
 import { LoadingButtonComponent } from "../../../../../Common/Components/loading-button/loading-button.component";
 import { ToastrService, ToastrTypes } from '../../../../../Common/Services/ToastrService/toastr.service';
 import { Router } from '@angular/router';
+import { RemoveUcafModel } from './ucafModels/remove.ucaf.model';
 
 @Component({
   selector: 'app-ucafs',
@@ -90,9 +91,9 @@ export class UcafsComponent {
   }
 
   //Remove Operations
-  remove(data: UCAFModel) {
+  remove(data: RemoveUcafModel) {
     this._ucafService.remove(data, (res) => {
-      var model = new UCAFModel();
+      var model = new RemoveUcafModel();
       model.id = data.id;
       model.companyId = data.companyId;
       this.getAll();

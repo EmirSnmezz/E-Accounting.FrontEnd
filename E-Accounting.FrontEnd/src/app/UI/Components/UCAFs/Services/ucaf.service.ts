@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GenericHttpClientService } from '../../../../Common/Services/HttpService/generic-http-clients.service';
-import { UCAFModel } from '../ucaf.models';
+import { UCAFModel } from '../ucafs/Ucaf/ucafModels/create.ucaf.models';
 import { CryptoService } from '../../../../Common/Services/cryptoService/crypto.service';
 import { LoginResponseModel } from '../../Authentication/Models/login-response.model';
 import { callbackify } from 'util';
 import { ResponseModel } from '../../../../Common/Models/response.model';
 import { MessageResponseModel } from '../../../../Common/Models/message-response.model';
 import { ToastrService } from '../../../../Common/Services/ToastrService/toastr.service';
+import { RemoveUcafModel } from '../ucafs/Ucaf/ucafModels/remove.ucaf.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class UCAFService {
     this._http.post<UCAFModel>("GetByCodeUCAF", { companyId: model.companyId, code: model.code }, (res) => callBack(res))
   }
 
-  remove(model: UCAFModel, callBack: (res: MessageResponseModel) => void) {
+  remove(model: RemoveUcafModel, callBack: (res: MessageResponseModel) => void) {
     model.companyId = this.loginResponseModel.company.companyId;
     this._http.post<MessageResponseModel>("UCAFS/RemoveByIdUcaf", { id: model.id, companyId: model.companyId }, (res) => callBack(res))
   }
