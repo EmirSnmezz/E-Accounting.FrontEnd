@@ -14,6 +14,7 @@ import { ToastrService, ToastrTypes } from '../../../../../Common/Services/Toast
 import { Router } from '@angular/router';
 import { RemoveUcafModel } from './ucafModels/remove.ucaf.model';
 import { SwalService } from '../../../../../Common/Services/SwalService/swal.service';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-ucafs',
@@ -38,11 +39,13 @@ export class UcafsComponent {
       name: "Hesap Planı"
     }]
 
+  isAddForm: boolean = false;
+  isUpdateForm: boolean = false;
+  isLoading: boolean = false;
   filterText: string = "";
-  issAddForm: boolean = false;
   openFormButtonIconString: string = "fa fa-plus";
   ucafType: string = "M"
-  isLoading: boolean = false;
+  updateUcaf: UCAFModel = new UCAFModel();
 
   constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router, private _swalService: SwalService) { }
 
@@ -53,13 +56,21 @@ export class UcafsComponent {
   }
 
   showAddForm() {
-    this.issAddForm = !this.issAddForm
-    if (this.issAddForm == true) {
+    this.isAddForm = !this.isAddForm
+    if (this.isAddForm == true) {
       this.openFormButtonIconString = "fa fa-minus"
     }
 
-    if (this.issAddForm == false) {
+    if (this.isAddForm == false) {
       this.openFormButtonIconString = "fa fa-plus"
+    }
+  }
+
+  showUpdateForm()
+  {
+    if(!this.isAddForm)
+    {
+      this.isUpdateForm = !this.isUpdateForm
     }
   }
 
@@ -75,10 +86,10 @@ export class UcafsComponent {
 
       this._ucafService.add(model, (res) => {
         form.reset();
-        this.ucafType = "M".toString();
+        this.ucafType = "M";
         this.getAll();
         this.isLoading = false;
-        this._toastr.toast(ToastrTypes.Success, res.message, "Ekleme İşlemi Başarılı...")
+        this._toastr.toast(ToastrTypes.Success, res.message, "Yeni Kayıt Eklendi.")
       })
     }
   }
@@ -100,7 +111,7 @@ export class UcafsComponent {
             model.id = data.id;
             model.companyId = data.companyId;
             this.getAll();
-            this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
+            this._toastr.toast(ToastrTypes.Success, res.message, "Silindi.");
           });
     })
   }
@@ -108,6 +119,14 @@ export class UcafsComponent {
   //Get Operations
   getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data)
+  }
+
+  get(ucaf: UCAFModel){ 
+    if(!this.isAddForm)
+    {
+      this.isUpdateForm = true;
+      this.updateUcaf = {...ucaf};
+    }
   }
 
   setColorForTypeName(type: string)
@@ -123,6 +142,26 @@ export class UcafsComponent {
     else{
       return "";
     }
+  }
+
+  update(form: NgForm){
+    if(form.valid)
+    {
+      this.isAddForm = false;
+      this.isLoading = true;
+      this.isLoading = false;
+      this._ucafService.update(this.updateUcaf, (res) => {
+      this.cancel();
+      this._toastr.toast(ToastrTypes.Success, res.message, "Güncellendi." )
+      this.getAll();
+    })
+    }
+  }
+
+  cancel()
+  {
+    this.isAddForm = false;
+    this.isUpdateForm = false;
   }
 
 }
