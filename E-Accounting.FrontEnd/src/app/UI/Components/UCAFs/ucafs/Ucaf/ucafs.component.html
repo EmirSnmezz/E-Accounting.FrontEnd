@@ -8,6 +8,9 @@
                     <label for="name">Hesap Planı Adı</label>
                     <input ngModel type="text" name="name" #name class="form-control" required
                         [validInput]="name.validity.valid">
+                    <div class="invalid-feedback">
+                        Hesap planı adı en az 5 karakter olmalıdır...
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label for="code">Hesap Planı Tipi</label>
@@ -21,23 +24,32 @@
                     <label for="type">Hesap Planı Kodu</label>
                     <input ngModel type="text" name="code" #code class="form-control" required minlength="5"
                         [validInput]="code.validity.valid">
+                    <div class="invalid-feedback">
+                        Hesap planı kodu en az 5 karakter olmalıdır...
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label>İşlemler</label>
-                    <loading-button [form]="addForm" [isLoading]="isLoading" btnName="Kaydet"
+                    <loading-button [form]="addForm" [isLoading]="isLoading" btnName="Kaydet" BtnIconClass="fa fa-save"
                         btnLoadingDescription="Kaydediliyor...">
-                        <i class="fa fa-plus"></i>
                     </loading-button>
                 </div>
+                <button class="btn btn-danger btn-block w-100" (click)="showAddForm()">
+                    <i class="fa fa-xmark"></i>
+                    Vazgeç
+                </button>
             </div>
         </form>
     </app-section>
     }
     <app-section sectionTitle="Hesap Planı Listesi">
         <div class="form-group float-left">
+            @if(!issAddForm)
+            {
             <button class="btn btn-outline-primary w-100" (click)="showAddForm()">
                 <i [class]=openFormButtonIconString></i>
             </button>
+            }
         </div>
         <div class="form-group float-right col-md-3">
             <input type="search" placeholder="Aranacak değer..." [(ngModel)]="filterText" class="form-control search">
@@ -56,10 +68,14 @@
 
                     @for (ucaf of ucafs | searchOfKeyword: filterText; track $index)
                     {
-                    <tr>
+                    
+                    <tr [class]="setColorForTypeName(ucaf.type)">
                         <td [innerText]="ucaf.code"></td>
                         <td [innerText]="ucaf.type"></td>
                         <td [innerText]="ucaf.name"></td>
+
+                        @if(ucaf.type != "A")
+                        {
                         <td>
                             <button class="btn btn-outline-warning btn-md" title="Güncelle">
                                 <i class="fa fa-edit"></i>
@@ -68,6 +84,7 @@
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
+                        }
                     </tr>
                     }
                 </tbody>
