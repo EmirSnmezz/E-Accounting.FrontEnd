@@ -18,10 +18,4 @@ export class AsideComponent {
 
   constructor(private _router: Router, private _authencticationService: AuthenticationService)
   {}
-
-  logout()
-  {
-    localStorage.clear();
-    this._authencticationService.logout();
-  }
 }
