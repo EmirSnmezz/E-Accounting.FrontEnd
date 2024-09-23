@@ -15,5 +15,6 @@ export class LoadingButtonComponent {
   @Input("isLoading") isLoading: boolean = false;
   @Input("btnName") btnName: string = "";
   @Input("btnLoadingDescription") btnLoadingDescription: string = "";
-  @Input("btnClass") btnClass: string = "btn-outline-primary w-100";
+  @Input("btnClass") btnClass: string = "btn btn-primary btn-block w-100";
+  @Input("BtnIconClass") btnIconClass: string = "";
 }
