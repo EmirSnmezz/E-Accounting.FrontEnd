@@ -5,4 +5,12 @@
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 10px 20px 12px 40px;
+    width: 30%;
+    float: right;
+}
+
+.search:focus
+{
+    width: 60%;
+    transition: 2s;
 }
