@@ -45,8 +45,13 @@ export class UCAFService {
   }
 
   createMainUcafs(callBack: (res: MessageResponseModel) => void) {
-    debugger;
     var companyId = this.loginResponseModel.company.companyId;
     this._http.post<MessageResponseModel>("UCAFS/CreateMainUCAF", { companyId: companyId }, res => callBack(res))
+  }
+
+  update(model: UCAFModel, callBack: (res: MessageResponseModel) => void)
+  {
+    model.companyId = this.loginResponseModel.company.companyId;
+    this._http.post<MessageResponseModel>("UCAFS/UpdateUCAF", model, res=> callBack(res))
   }
 }
