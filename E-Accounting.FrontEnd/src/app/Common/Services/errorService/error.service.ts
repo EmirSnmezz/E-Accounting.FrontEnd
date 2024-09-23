@@ -11,7 +11,7 @@ export class ErrorService {
   constructor(private _toastr: ToastrService) { }
 
   errorHandler(err: HttpErrorResponse)
-  { debugger;
+  {
     switch(err.status){
       case 0:
         this._toastr.toast(ToastrTypes.Error, "Hata!", "Api adresine ulaşılamıyor!");
@@ -23,7 +23,7 @@ export class ErrorService {
           case 500:
             if(err.error){
               let message = JSON.stringify(err.error.Message)
-              this._toastr.toast(ToastrTypes.Error, "Hata!", message);
+              this._toastr.toast(ToastrTypes.Error,  message, "Hata!");
             }else{
               this._toastr.toast(ToastrTypes.Error, "Hata!", "Bir hata oluştu!");
             }
@@ -32,6 +32,5 @@ export class ErrorService {
       default:
         break;
     }
-    console.log(err.message);
   }
 }
