@@ -13,6 +13,7 @@ import { LoadingButtonComponent } from "../../../../../Common/Components/loading
 import { ToastrService, ToastrTypes } from '../../../../../Common/Services/ToastrService/toastr.service';
 import { Router } from '@angular/router';
 import { RemoveUcafModel } from './ucafModels/remove.ucaf.model';
+import { SwalService } from '../../../../../Common/Services/SwalService/swal.service';
 
 @Component({
   selector: 'app-ucafs',
@@ -43,7 +44,7 @@ export class UcafsComponent {
   ucafType: string = "M"
   isLoading: boolean = false;
 
-  constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router) { }
+  constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router, private _swalService: SwalService) { }
 
   ucafs: UCAFModel[] = [];
 
@@ -92,22 +93,36 @@ export class UcafsComponent {
 
   //Remove Operations
   remove(data: RemoveUcafModel) {
-    var result = confirm("Hesap Planını Gerçekten Silmek İstiyor Musunuz ?");
-    if(result)
-    {
-      this._ucafService.remove(data, (res) => {
-        var model = new RemoveUcafModel();
-        model.id = data.id;
-        model.companyId = data.companyId;
-        this.getAll();
-        this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
-      });
-    }
+
+    this._swalService.callSwal("Sil", "Sil ?", "Hesap planı kodunu gerçekten silmek istiyor musunuz ?", ()=>{
+      var model = new RemoveUcafModel();
+          this._ucafService.remove(data, (res) => {
+            model.id = data.id;
+            model.companyId = data.companyId;
+            this.getAll();
+            this._toastr.toast(ToastrTypes.Success, res.message, "Silme İşlemi Başarılı...");
+          });
+    })
   }
 
   //Get Operations
   getAll() {
     this._ucafService.getAll(res => this.ucafs = res.data)
+  }
+
+  setColorForTypeName(type: string)
+  {
+    if(type == 'A')
+    {
+      return "text-danger" ;
+    }
+    else if(type == 'G')
+    {
+      return "text-primary";
+    }
+    else{
+      return "";
+    }
   }
 
 }
