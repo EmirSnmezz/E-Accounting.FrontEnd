@@ -1,6 +1,7 @@
 <app-blank-common title="Hesap Planı" [navs]="navs">
-    @if(issAddForm == true)
+    @if(isAddForm == true)
     {
+        <!--Ekleme Formu-->
     <app-section sectionTitle="Hesap Planı Ekleme Formu" class="align-content-center">
         <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
             <div class="row">
@@ -31,20 +32,70 @@
                 <div class="col-md-3">
                     <label>İşlemler</label>
                     <loading-button [form]="addForm" [isLoading]="isLoading" btnName="Kaydet" BtnIconClass="fa fa-save"
-                        btnLoadingDescription="Kaydediliyor...">
+                        btnLoadingDescription="Kaydediliyor..." btnClass="btn-outline-primary">
                     </loading-button>
                 </div>
-                <button class="btn btn-danger btn-block w-100" (click)="showAddForm()">
+                <button class="btn btn-danger btn-block w-100" (click)="showAddForm()" type="button">
                     <i class="fa fa-xmark"></i>
                     Vazgeç
                 </button>
             </div>
         </form>
     </app-section>
+    <!-- Ekleme Formu-->
+    }
+    @if(isUpdateForm){
+         <!-- Güncelleme Formu -->
+    <app-section sectionTitle="Hesap Planı Güncelleme Formu" class="align-content-center">
+        <form #updateForm="ngForm" autocomplete="off" (ngSubmit)="update(updateForm)">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="name">Hesap Planı Adı</label>
+                    <input class="form-control" [(ngModel)]="updateUcaf.name" name="name" #name type="text" required
+                        [validInput]="name.validity.valid">
+                    <div class="invalid-feedback">
+                        Hesap planı adı en az 5 karakter olmalıdır...
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="code">Hesap Planı Tipi</label>
+                    <select class="form-control" [(ngModel)]="updateUcaf.type" name="type" #type
+                        [validInput]="type.validity.valid" value="M">
+                        <option value="G">Grup</option>
+                        <option value="M" selected>Muavin</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="type">Hesap Planı Kodu</label>
+                    <input class="form-control" [(ngModel)]="updateUcaf.code" name="code" type="text"  #code  required minlength="5"
+                        [validInput]="code.validity.valid">
+                    <div class="invalid-feedback">
+                        Hesap planı kodu en az 5 karakter olmalıdır...
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>İşlemler</label>
+                    <loading-button 
+                    [form]="updateForm" 
+                    [isLoading]="isLoading" 
+                    btnName="Güncelle" 
+                    BtnIconClass="fa fa-save"
+                    btnLoadingDescription="Güncelleniyor..." 
+                    btnClass="btn btn-outline-warning w-100">
+                    </loading-button>
+                </div>
+                <button class="btn btn-danger btn-block w-100" (click)="showUpdateForm()" type="button">
+                    <i class="fa fa-xmark"></i>
+                    Vazgeç
+                </button>
+            </div>
+        </form>
+    </app-section>
+     <!-- Güncelleme Formu -->
     }
     <app-section sectionTitle="Hesap Planı Listesi">
         <div class="form-group float-left">
-            @if(!issAddForm)
+            @if(!isAddForm && !isUpdateForm)
             {
             <button class="btn btn-outline-primary w-100" (click)="showAddForm()">
                 <i [class]=openFormButtonIconString></i>
@@ -77,7 +128,7 @@
                         @if(ucaf.type != "A")
                         {
                         <td>
-                            <button class="btn btn-outline-warning btn-md" title="Güncelle">
+                            <button class="btn btn-outline-warning btn-md" title="Güncelle" (click)="get(ucaf)">
                                 <i class="fa fa-edit"></i>
                             </button>
                             <button class="btn btn-outline-danger btn-md mx-1" title="Sil" (click)="remove(ucaf)">
