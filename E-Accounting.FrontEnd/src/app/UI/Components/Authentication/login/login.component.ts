@@ -25,6 +25,7 @@ export class LoginComponent {
 
     if(form.valid)
     {
+      this.isLoading = true;
       this._authenticationService.login(form.value);
     }
 }
