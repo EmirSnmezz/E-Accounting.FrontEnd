@@ -13,7 +13,7 @@ import { Navigations } from '../../../../router/navigation';
   styleUrl: './aside.component.css'
 })
 export class AsideComponent {
-  @Input()loginResponseModel = new LoginResponseModel();
+ @Input()loginResponseModel = new LoginResponseModel();
   navigations = Navigations
 
   constructor(private _router: Router, private _authencticationService: AuthenticationService)

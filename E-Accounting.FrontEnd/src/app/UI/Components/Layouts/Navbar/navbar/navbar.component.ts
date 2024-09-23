@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthenticationService } from '../../../Authentication/Services/authentication.service';
+import { LoginResponseModel } from '../../../Authentication/Models/login-response.model';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +10,10 @@ import { AuthenticationService } from '../../../Authentication/Services/authenti
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  @Input("loginResponseModel")loginResponseModel = new LoginResponseModel();
+  
   constructor(private _authencticationService: AuthenticationService){}
-
+  
   logout()
   {
     localStorage.clear();
