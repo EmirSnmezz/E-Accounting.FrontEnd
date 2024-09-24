@@ -8,6 +8,7 @@ import { ResponseModel } from '../../../../Common/Models/response.model';
 import { MessageResponseModel } from '../../../../Common/Models/message-response.model';
 import { ToastrService } from '../../../../Common/Services/ToastrService/toastr.service';
 import { RemoveUcafModel } from '../ucafs/Ucaf/ucafModels/remove.ucaf.model';
+import { LoginResponseService } from '../../../../Common/Services/loginResponseService/login-response.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,9 @@ import { RemoveUcafModel } from '../ucafs/Ucaf/ucafModels/remove.ucaf.model';
 export class UCAFService {
 
   loginResponseModel: LoginResponseModel = new LoginResponseModel();
-  loginResponsestring = this._cyrptoService.decrypto(localStorage.getItem("accessToken").toString());
 
-  constructor(
-    private _cyrptoService: CryptoService,
-    private _http: GenericHttpClientService) {
-    this.loginResponseModel = JSON.parse(this.loginResponsestring)
-    console.log(this.loginResponseModel);
+  constructor(private _http: GenericHttpClientService, private _loginReponseService: LoginResponseService) {
+    this.loginResponseModel = this._loginReponseService.getLoginReponseModel();
   }
 
   getAll(callBack: (res: ResponseModel<UCAFModel[]>) => void) {
@@ -49,9 +46,8 @@ export class UCAFService {
     this._http.post<MessageResponseModel>("UCAFS/CreateMainUCAF", { companyId: companyId }, res => callBack(res))
   }
 
-  update(model: UCAFModel, callBack: (res: MessageResponseModel) => void)
-  {
+  update(model: UCAFModel, callBack: (res: MessageResponseModel) => void) {
     model.companyId = this.loginResponseModel.company.companyId;
-    this._http.post<MessageResponseModel>("UCAFS/UpdateUCAF", model, res=> callBack(res))
+    this._http.post<MessageResponseModel>("UCAFS/UpdateUCAF", model, res => callBack(res))
   }
 }
