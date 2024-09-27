@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FormsModule, NgForm} from '@angular/forms'
 import { InputValidDirective } from '../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
 import { LoadingButtonComponent } from "../../../../Common/Components/loading-button/loading-button.component";
 import { AuthenticationService } from '../Services/authentication.service';
-declare const localStorage;
+import { Store } from '@ngrx/store';
+import { changeLoading } from '../../../../Common/State/loading/loading.actions';
+
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,17 +18,13 @@ declare const localStorage;
 })
 export class LoginComponent {
 
-  isLoading: boolean = false;
-  constructor(private _authenticationService: AuthenticationService, private _router: Router)
+  constructor(private _authenticationService: AuthenticationService, private store: Store<{loading: boolean}>)
   {
-    if(localStorage.getItem("accessToken") != null)
-      this._router.navigateByUrl("");
   }
   Login(form : NgForm) {
-
     if(form.valid)
     {
-      this.isLoading = true;
+      this.store.dispatch(changeLoading())
       this._authenticationService.login(form.value);
     }
 }
