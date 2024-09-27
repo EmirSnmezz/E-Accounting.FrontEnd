@@ -1,24 +1,16 @@
 <div class="form-group">
-    <div class="col-8">
-    </div>
-    <!-- /.col -->
-    <div class="col-12">
-      <button type="submit" 
-      class="btn btn-primary btn-block"
-      [disabled]="!form.valid"
-      *ngIf="!isLoading"
-      >
-     <i ngClass ={{btnIconClass}}></i> {{btnName}}
-    </button>
-
-    <button 
-    type ="submit"
-    class={{btnClass}}
-    disabled
-    *ngIf="isLoading">
-      <span class="spinner-border spinner-border-sm"></span>
-      <span> {{btnLoadingDescription}}.</span>
-  </button>
-    </div>
-    <!-- /.col -->
-  </div>
+  <button
+     *ngIf="!isloading"
+     type="submit"
+     class="btn btn-block {{btnClass}}"
+     [disabled]="!form.valid">
+     <i class="{{iconClass}}"></i>
+     {{btnName}}
+   </button>
+   <button
+   *ngIf="isloading"
+    class="btn {{btnLoadingClass}}" disabled>
+   <span class="spinner-border spinner-border-sm"></span>                
+   <span class="mx-1">{{btnLoadingDescription}}</span>                
+   </button>
+</div>
