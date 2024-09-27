@@ -6,8 +6,16 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 import { provideStore, StoreModule } from '@ngrx/store'
-import { changeLoading } from './Common/State/loading.actions';
-import { loadingReducer } from './Common/State/loading-reducer';
+import { changeLoading } from './Common/State/loading/loading.actions';
+import { loadingReducer } from './Common/State/loading/loading-reducer';
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(), provideHttpClient(withFetch()), importProvidersFrom(BrowserModule, SweetAlert2Module.forRoot(), StoreModule.forRoot({loading: loadingReducer})), provideStore()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideRouter(routes), 
+    provideClientHydration(), 
+    provideHttpClient(withFetch()), 
+    importProvidersFrom(BrowserModule, 
+      SweetAlert2Module.forRoot(), 
+      StoreModule.forRoot({loading: loadingReducer}))
+    ]
 };
