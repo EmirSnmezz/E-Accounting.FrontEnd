@@ -5,7 +5,6 @@ import { SectionComponent } from '../../../../../Common/Components/Blank/blank/S
 import { NavModel } from '../../../../../Common/Components/Blank/blank/Models/Nav.model';
 import { UCAFService } from '../../Services/ucaf.service';
 import { UCAFModel } from './ucafModels/create.ucaf.models';
-import { ResponseModel } from '../../../../../Common/Models/response.model';
 import { SearchOfKeywordPipe } from '../../Pipes/search-of-keyword.pipe';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { InputValidDirective } from '../../../../../Common/Directives/Input-validtation-directive/input-valid.directive';
@@ -14,7 +13,6 @@ import { ToastrService, ToastrTypes } from '../../../../../Common/Services/Toast
 import { Router } from '@angular/router';
 import { RemoveUcafModel } from './ucafModels/remove.ucaf.model';
 import { SwalService } from '../../../../../Common/Services/SwalService/swal.service';
-import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-ucafs',
@@ -78,7 +76,6 @@ export class UcafsComponent {
   //Create Operations
   add(form: NgForm) {
     if (form.valid) {
-      this.isLoading = true;
       let model = new UCAFModel();
       model.code = form.controls["code"].value;
       model.type = form.controls["type"].value;
@@ -148,8 +145,6 @@ export class UcafsComponent {
     if(form.valid)
     {
       this.isAddForm = false;
-      this.isLoading = true;
-      this.isLoading = false;
       this._ucafService.update(this.updateUcaf, (res) => {
       this.cancel();
       this._toastr.toast(ToastrTypes.Success, res.message, "Güncellendi." )

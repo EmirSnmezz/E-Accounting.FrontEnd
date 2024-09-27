@@ -3,6 +3,7 @@ import { GenericHttpClientService } from '../../../../Common/Services/HttpServic
 import { LoginResponseModel } from '../Models/login-response.model';
 import { Router } from '@angular/router';
 import { CryptoService } from '../../../../Common/Services/cryptoService/crypto.service';
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,13 @@ export class AuthenticationService {
     {
       let cryptoValue = this._crypto.encrypto(JSON.stringify(res))
       localStorage.setItem("accessToken", cryptoValue);
-      if(localStorage.getItem("accessToken") != null)
-        this._router.navigateByUrl("");
+      this._router.navigateByUrl("");
     })
   }
 
   logout()
   {
-    localStorage.clear();
+   localStorage.removeItem("accessToken");
     this._router.navigateByUrl("/login");
   }
 }
