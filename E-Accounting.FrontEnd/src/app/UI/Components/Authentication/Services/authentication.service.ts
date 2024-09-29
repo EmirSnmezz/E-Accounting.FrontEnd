@@ -18,7 +18,8 @@ export class AuthenticationService {
     {
       let cryptoValue = this._crypto.encrypto(JSON.stringify(res))
       localStorage.setItem("accessToken", cryptoValue);
-      this._router.navigateByUrl("");
+      if(localStorage.getItem("accessToken") == null && localStorage.getItem("accessToken") == undefined)
+        this._router.navigateByUrl("");
     })
   }
 
