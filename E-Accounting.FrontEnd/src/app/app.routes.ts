@@ -18,6 +18,11 @@ export const routes: Routes =
                     path: "ucafs",
                     loadComponent: () => import("./UI/Components/UCAFs/ucafs/Ucaf/ucafs.component")
                         .then(c => c.UcafsComponent)
+                },
+                {
+                    path: "reports",
+                    loadComponent: () => import("./UI/Components/reports/component/reports.component")
+                        .then(c => c.ReportsComponent)
                 }
             ]
 
