@@ -25,21 +25,24 @@ import { SwalService } from '../../../../../Common/Services/SwalService/swal.ser
     FormsModule,
     InputValidDirective,
     LoadingButtonComponent
-  ],
+],
   templateUrl: './ucafs.component.html',
   styleUrl: './ucafs.component.css'
 })
 export class UcafsComponent {
   navs: NavModel[] = [
     {
-      routerLink: "/",
+      backLinkName: "Anasayfa",
+      backRouterLink: "/",
       class: "",
-      name: "Hesap Planı"
+      insideLinkName: "Hesap Planı",
+      insideRouterLink: "/ucafs"
     }]
 
   isAddForm: boolean = false;
   isUpdateForm: boolean = false;
   isLoading: boolean = false;
+  isViewReport: boolean = false;
   filterText: string = "";
   openFormButtonIconString: string = "fa fa-plus";
   ucafType: string = "M"
@@ -158,5 +161,7 @@ export class UcafsComponent {
     this.isAddForm = false;
     this.isUpdateForm = false;
   }
+
+  exportExcel(){}
 
 }
