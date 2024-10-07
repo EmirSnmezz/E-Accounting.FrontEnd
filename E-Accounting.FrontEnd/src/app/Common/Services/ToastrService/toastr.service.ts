@@ -9,7 +9,7 @@ export class ToastrService {
 
   constructor() { }
 
-  toast(type: ToastrTypes, title: string, message: string)
+  toast(type: ToastrTypes, message: string, title: string = "")
   {
     switch(type)
     {
