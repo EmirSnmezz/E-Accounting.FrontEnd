@@ -1,0 +1,7 @@
+<div>
+    <button *ngIf="!isLoading" type=submit class="btn btn-outline-primary mx-1 {{btnClass}}"> <i class="{{iconClass}}"></i> </button>
+    <button *ngIf="isLoading" type=submit class="btn btn-outline-primary mx-1 {{btnClass}}">
+        <span class="spinner-border spinner-border-sm"></span>
+        <span class="mx-1"> {{btnLoadingClass}} </span>
+    </button>
+</div>
