@@ -89,7 +89,6 @@ export class GenericHttpClientService {
 
   getToken()
   {
-    // debugger;
     let accessToken = localStorage.getItem("accessToken")
     if(accessToken == undefined || accessToken == null){
       return;
@@ -110,7 +109,7 @@ export class GenericHttpClientService {
             companyId: this.loginResponseModel.company.companyId
           };
 
-          this._http.post<LoginResponseModel>(this.apiUrl + "Auth/GetTokenByRefreshToken", model).subscribe({
+          this._http.post<LoginResponseModel>(this.apiUrl + "Auth/GetTokenByRefreshToken", model  ).subscribe({
             next: (res) =>{
               let cryptoValue = this._cryptoService.encrypto(JSON.stringify(res));
               localStorage.setItem("accessToken", cryptoValue);
