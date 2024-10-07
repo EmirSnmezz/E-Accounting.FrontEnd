@@ -15,9 +15,11 @@ title: string = "Anasayfa"
 sectionTitle: string = "Anasayfa"
 navs: NavModel[] = [
   {
-    routerLink : "",
-    class: "test",
-    name : "Anasayfa"
+    backLinkName: "",
+    backRouterLink: "",
+    insideLinkName: "Anasayfa",
+   insideRouterLink: "/" ,
+   class: ""
   }
 ]
 }
