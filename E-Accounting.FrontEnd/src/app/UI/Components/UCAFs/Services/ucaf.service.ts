@@ -17,13 +17,12 @@ export class UCAFService {
 
   loginResponseModel: LoginResponseModel = new LoginResponseModel();
 
-  constructor(private _http: GenericHttpClientService, private _loginReponseService: LoginResponseService) {
-    this.loginResponseModel = this._loginReponseService.getLoginReponseModel();
+  constructor(private _http: GenericHttpClientService, private _loginReponseService: LoginResponseService) {  
+    this.loginResponseModel = _loginReponseService.getLoginReponseModel();
   }
 
   getAll(callBack: (res: ResponseModel<UCAFModel[]>) => void) {
     let model = { companyId: this.loginResponseModel.company.companyId }
-    console.log(model);
     this._http.post<ResponseModel<UCAFModel[]>>("UCAFS/GetAllUCAF", model, res => callBack(res))
   }
 
