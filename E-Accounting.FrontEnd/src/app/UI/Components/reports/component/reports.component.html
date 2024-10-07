@@ -1,29 +1,33 @@
 <app-blank-common title="Raporlar" [navs]="navs">
-    <app-section sectionTitle="Rapor Listesi">
+    <app-section title="Rapor Listesi">
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Rapor Adı</th>
-                    <th> İstek Tarihi</th>
-                    <th> Oluşturulma Tarihi</th>
-                    <th>Dosya</th>
+                    <th> Rapor Adı </th>
+                    <th> İstek Tarihi </th>
+                    <th> Oluşturulma Tarihi </th>
+                    <th> Dosya </th>
                 </tr>
             </thead>
+
             <tbody>
-                @for (report of reports; track $index) 
+                @for (report of reports; track $index)
                 {
-                    <tr>
-                        <td>{{$index+1}}</td>
-                        <td [innerText]="report.name"></td>
-                        <td [innerText]="report.createdDate | date: 'dd.MM.yyyy HH:mm:ss'"></td>
-                        <td [innerText]="report.updateDate | date: 'dd.MM.yyyy HH:mm:ss'"></td>
-                        <td>
-                            <a [href]="report.fileUrl">
-                                <i class="fa fa-file-excel"></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{$index +1}}</td>
+                    <td>{{report.name}}</td>
+                    <td> {{!report.status ? 'Hazırlanıyor' : 'Hazır'}}</td>
+                    <td>{{report?.createdDate | date: 'dd.MM.yyyy HH:mm:ss' }}</td>
+                    <td> 
+                        <!-- <span [class]="changeSpanClassByStatus(report.status)"></span> -->
+                    </td>
+                    <td>
+                        <a [href]="report.fileUrl" target="_blank">
+                            <i class="fa fa-file-excel"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
