@@ -13,6 +13,9 @@ import { ToastrService, ToastrTypes } from '../../../../../Common/Services/Toast
 import { Router } from '@angular/router';
 import { RemoveUcafModel } from './ucafModels/remove.ucaf.model';
 import { SwalService } from '../../../../../Common/Services/SwalService/swal.service';
+import { ExcelLoadingButtonComponent } from "../../../../../Common/Components/excel-loading-button/excel-loading-button/excel-loading-button.component";
+import { ReportRequestModel } from '../../../../../Common/Models/report-request.model';
+import { ReportService } from '../../../reports/services/report.service';
 
 @Component({
   selector: 'app-ucafs',
@@ -24,7 +27,8 @@ import { SwalService } from '../../../../../Common/Services/SwalService/swal.ser
     SearchOfKeywordPipe,
     FormsModule,
     InputValidDirective,
-    LoadingButtonComponent
+    LoadingButtonComponent,
+    ExcelLoadingButtonComponent
 ],
   templateUrl: './ucafs.component.html',
   styleUrl: './ucafs.component.css'
@@ -42,13 +46,14 @@ export class UcafsComponent {
   isAddForm: boolean = false;
   isUpdateForm: boolean = false;
   isLoading: boolean = false;
+  excelIsLoading: boolean = false;
   isViewReport: boolean = false;
   filterText: string = "";
   openFormButtonIconString: string = "fa fa-plus";
   ucafType: string = "M"
   updateUcaf: UCAFModel = new UCAFModel();
 
-  constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router, private _swalService: SwalService) { }
+  constructor(private _ucafService: UCAFService, private _toastr: ToastrService, private _router: Router, private _swalService: SwalService, private _reportService: ReportService) { }
 
   ucafs: UCAFModel[] = [];
 
@@ -162,6 +167,14 @@ export class UcafsComponent {
     this.isUpdateForm = false;
   }
 
-  exportExcel(){}
+  exportExcel(){
+    let model: ReportRequestModel = new ReportRequestModel();
+    model.type = "UCAF";
+
+    this._reportService.request(model, (res) => {
+      this._toastr.toast(ToastrTypes.Info, res.message, "");
+      this._router.navigateByUrl("/reports")
+    });
+  }
 
 }

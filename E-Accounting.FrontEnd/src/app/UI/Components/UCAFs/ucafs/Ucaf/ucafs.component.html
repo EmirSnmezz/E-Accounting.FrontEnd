@@ -97,6 +97,7 @@
             <button class="btn btn-outline-primary w-100" (click)="showAddForm()">
                 <i [class]=openFormButtonIconString></i>
             </button>
+            <excel-loading-button iconClass="fa fa-file-excel" btnClass="btn-outline-primary" [isLoading]="excelIsLoading" (click)="exportExcel()"></excel-loading-button>
         </div>
         <div class="form-group float-right col-md-3">
             <input type="search" placeholder="Aranacak değer..." [(ngModel)]="filterText" class="form-control search">

@@ -29,7 +29,23 @@ export class ReportsComponent {
       insideLinkName: "Raporlar",
       class: "",
     })
+  }
 
-    console.log(JSON.stringify(this.navs[0]));
+  ngOnInit()
+  {
+    throw new Error('Method Not İmplemented');
+  }
+
+  getAll()
+  {
+    this._report.getAll(res => this.reports = res)
+  }
+
+  changeSpanClassByStatus(status: boolean)
+  {
+    if(status)
+      return "text-success";
+
+    return "text-danger";
   }
 }
