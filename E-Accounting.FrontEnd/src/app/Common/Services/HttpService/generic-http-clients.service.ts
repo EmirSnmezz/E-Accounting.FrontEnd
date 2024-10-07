@@ -89,6 +89,7 @@ export class GenericHttpClientService {
 
   getToken()
   {
+    // debugger;
     let accessToken = localStorage.getItem("accessToken")
     if(accessToken == undefined || accessToken == null){
       return;
@@ -97,7 +98,7 @@ export class GenericHttpClientService {
     this.token = this.loginResponseModel.token.token;
     if (this.token != undefined && this.token != "" && this.token != null) {
       var decoded: any = jwtDecode(this.token)
-      let time = new Date().getTime() / 1000;
+      let time: number = new Date().getTime() / 1000
       let refreshTokenTime = new Date(this.loginResponseModel.token.refreshTokenExperies).getTime() / 1000;
       if (time > decoded.exp) {
         if(refreshTokenTime >= time)
@@ -119,6 +120,8 @@ export class GenericHttpClientService {
             error: (err) =>{
               this._errorService.errorHandler(err);
               console.log(err);
+              localStorage.removeItem("accessToken");
+              this._router.navigateByUrl("/login");
             }
           })
         }
