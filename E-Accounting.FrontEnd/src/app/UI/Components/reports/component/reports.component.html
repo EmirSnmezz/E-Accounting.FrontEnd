@@ -7,6 +7,7 @@
                     <th> Rapor Adı </th>
                     <th> İstek Tarihi </th>
                     <th> Oluşturulma Tarihi </th>
+                    <th> Durum </th>
                     <th> Dosya </th>
                 </tr>
             </thead>
@@ -17,11 +18,9 @@
                 <tr>
                     <td>{{$index +1}}</td>
                     <td>{{report.name}}</td>
-                    <td> {{!report.status ? 'Hazırlanıyor' : 'Hazır'}}</td>
+                    <!-- İstek Tarihi -->
                     <td>{{report?.createdDate | date: 'dd.MM.yyyy HH:mm:ss' }}</td>
-                    <td> 
-                        <!-- <span [class]="changeSpanClassByStatus(report.status)"></span> -->
-                    </td>
+                    <td><span [class]="changeSpanClassByStatus(report.status)"></span></td>
                     <td>
                         <a [href]="report.fileUrl" target="_blank">
                             <i class="fa fa-file-excel"></i>
