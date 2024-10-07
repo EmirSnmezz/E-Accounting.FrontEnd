@@ -1,6 +1,8 @@
 export class NavModel{
-    routerLink: string = "";
+    backRouterLink: string = "";
+    backLinkName: string = "";
+    insideRouterLink: string = "";
+    insideLinkName: string = "";
     class: string = "";
-    name: string = "";
 
 }
