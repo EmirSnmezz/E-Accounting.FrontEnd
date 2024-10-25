@@ -14,15 +14,21 @@ export class AuthenticationService {
 
   login(model:any)
   {
-    this._httpClient.post<LoginResponseModel>(this.api, model, res =>
+    if(!localStorage.getItem("accessToken"))
     {
-      let cryptoValue = this._crypto.encrypto(JSON.stringify(res))
-      localStorage.setItem("accessToken", cryptoValue);
-      if(localStorage.getItem("accessToken") !== null || localStorage.getItem("accessToken") !== undefined)
-      {
-        this._router.navigateByUrl("");
-      }
-    });
+      this._httpClient.post<LoginResponseModel>(this.api, model, res =>
+        {
+          let cryptoValue = this._crypto.encrypto(JSON.stringify(res))
+          localStorage.setItem("accessToken", cryptoValue);
+          if(localStorage.getItem("accessToken") !== null || localStorage.getItem("accessToken") !== undefined)
+          {
+            this._router.navigateByUrl("/");
+          }
+        });
+    }
+    else{
+      this._router.navigateByUrl("/");
+    }
   }
 
   logout()
