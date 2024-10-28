@@ -6,8 +6,8 @@
                     <th>#</th>
                     <th> Rapor Adı </th>
                     <th> İstek Tarihi </th>
-                    <th> Oluşturulma Tarihi </th>
                     <th> Durum </th>
+                    <th> Oluşturulma Tarihi </th>
                     <th> Dosya </th>
                 </tr>
             </thead>
@@ -20,10 +20,11 @@
                     <td>{{report.name}}</td>
                     <!-- İstek Tarihi -->
                     <td>{{report?.createdDate | date: 'dd.MM.yyyy HH:mm:ss' }}</td>
-                    <td><span [class]="changeSpanClassByStatus(report.status)"></span></td>
+                    <td><span [class]="changeSpanClassByStatus(report.status)">{{reportStatusText}}</span></td>
+                    <td></td>
                     <td>
                         <a [href]="report.fileUrl" target="_blank">
-                            <i class="fa fa-file-excel"></i>
+                            <i *ngIf="report.fileUrl != '' && report.fileUrl != undefined " class="fa fa-file-excel"></i>
                         </a>
                     </td>
                 </tr>
