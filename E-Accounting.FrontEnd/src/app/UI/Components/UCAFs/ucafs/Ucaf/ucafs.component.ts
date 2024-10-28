@@ -169,8 +169,8 @@ export class UcafsComponent {
 
   exportExcel(){
     let model: ReportRequestModel = new ReportRequestModel();
-    model.type = "UCAF";
-
+    model.name = "Hesap Planı"
+    
     this._reportService.request(model, (res) => {
       this._toastr.toast(ToastrTypes.Info, res.message, "");
       this._router.navigateByUrl("/reports")
