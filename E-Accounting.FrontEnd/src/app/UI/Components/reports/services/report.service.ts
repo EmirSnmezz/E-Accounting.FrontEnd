@@ -19,7 +19,7 @@ export class ReportService {
   getAll(callBack: (res: ReportModel[]) => void){
     let model:RequestModel = new RequestModel();
     model.companyId = this._loginResponse.getLoginReponseModel().company.companyId;
-    this._http.post<ResponseModel<ReportModel[]>>("Reports/GetAll", model, res =>{
+    this._http.post<ResponseModel<ReportModel[]>>("Report/GetAllReport", model, res =>{
       callBack(res.data);
     })
   }
@@ -27,7 +27,7 @@ export class ReportService {
   request(model: ReportRequestModel, callBack: (res: MessageResponseModel) => void)
   {
     model.companyId = this._loginResponse.getLoginReponseModel().company.companyId;
-    this._http.post<MessageResponseModel>("Reports/Request", model, res => {
+    this._http.post<MessageResponseModel>("Report/RequestReport", model, res => {
       callBack(res);
     })
   }
